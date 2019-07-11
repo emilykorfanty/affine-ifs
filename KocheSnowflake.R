@@ -35,7 +35,7 @@ for(i in 1:length(theta)){
 
 # Decisions for which function to use in each iteration 
 # P(v_i) = 1/8 for 1 = 1, ..., 8
-D <- sample(c(1,2,3,4,5,6,7,8),N,replace = TRUE)
+D <- sample(c(1,2,3,4,5,6,7),N,replace = TRUE)
 
 X <- list() # A list to hold the points of the gasket
 
