@@ -40,7 +40,7 @@ for(i in 2:N){
 # Plot the points
 plot(x=M[,1],y=M[,2],xlim = c(-1.5,1.5),ylim = c(-1,1),
      xlab ="",ylab="",pch='.',frame.plot=FALSE)
-lines(c(0,sqrt(3/2)),c(1,-0.5),type = "l",col="blue",lwd=3)
-lines(c(0,-sqrt(3/2)),c(1,-0.5),type = "l",col="blue",lwd=3)
-lines(c(-sqrt(3/2),sqrt(3/2)),c(-0.5,-0.5),type = "l",col="blue",lwd=3)
+#lines(c(0,sqrt(3/2)),c(1,-0.5),type = "l",col="blue",lwd=3)
+#lines(c(0,-sqrt(3/2)),c(1,-0.5),type = "l",col="blue",lwd=3)
+#lines(c(-sqrt(3/2),sqrt(3/2)),c(-0.5,-0.5),type = "l",col="blue",lwd=3)
 text(-1,0.8,paste0("N = ",N))
