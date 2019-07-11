@@ -3,4 +3,4 @@ A collection of fractal computations for some affine iterated function systems, 
 
 Sierpinski Gasket <br>
 Sierpinski Carpet <br>
-A Square-type Fractal 
+Some other experiments 
