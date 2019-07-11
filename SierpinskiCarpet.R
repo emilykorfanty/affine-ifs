@@ -10,7 +10,7 @@
 #-----------------------------------------
 N <- 70000  # Number of iterations
 
-# Triangle ABC
+# Vertices of a square (note - these are not the vertices of the main square)
 V1 <- c(0,0)
 V2 <- c(0, 1/3)
 V3 <- c(0, 2/3)
