@@ -28,7 +28,7 @@ V <- list(c(1/6, sqrt(3)/6), c(1/6, sqrt(3)/6), c(1/3, sqrt(3)/3), c(2/3, sqrt(3
 FF <- list()
 for(i in 1:length(theta)){
   FF[[i]] <- function(input_vector){
-    output_vector <- lambda[[i]]*R[[i]]%*%input_vector + V[[i]]
+    output_vector <- c(lambda[[i]]*unlist(R[[i]])%*%input_vector + unlist(V[[i]]))
     return(output_vector)
     }
 }
