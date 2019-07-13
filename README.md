@@ -3,4 +3,5 @@ A collection of fractal computations for some affine iterated function systems, 
 
 Sierpinski Gasket <br>
 Sierpinski Carpet <br>
+Koch Snowflake <br>
 Some other experiments 
