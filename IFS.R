@@ -1,14 +1,14 @@
 # Koche Snowflake - Random Iteration Method
 # 
-#-----------------------------------------
-#-----------------------------------------
+#--------------------------------------------------------
+#--------------------------------------------------------
 # IFS:
 # f_i(x) = \lambda_i R_i*x + v_i, i = 1, ..., m
 # 
-# Setup 
-#-----------------------------------------
-#-----------------------------------------
-setwd("~/Emily/IFS Code")
+# Setup (ifs_data.csv should be in your working directory
+#--------------------------------------------------------
+#--------------------------------------------------------
+
 data1 <- read.csv(file="ifs_data.csv",header = TRUE,stringsAsFactors = FALSE)
 
 nr<-length(count.fields("ifs_data.csv", skip = 1))
@@ -16,7 +16,7 @@ nr<-length(count.fields("ifs_data.csv", skip = 1))
 data_fix <- data1[3:8]
 for(i in 1:6){
   for(j in 1:nr){
-  data_fix[i][j,1] <- sapply(data_fix[i][j,1], function(x) eval(parse(text=x)))}
+    data_fix[i][j,1] <- sapply(data_fix[i][j,1], function(x) eval(parse(text=x)))}
 }
 
 data1[3:8]<-data_fix
@@ -25,12 +25,28 @@ data1[3:8]<-data_fix
 #--------------------------------------------------------------------------
 #--------------------------------------------------------------------------
 
-#ifs <- "SierpinskiGasket"
-ifs <- "SierpinskiCarpet"
+ifs <- "SierpinskiGasket"
+#ifs <- "SierpinskiCarpet"
+#ifs <- "SierpinskiPentagon"
+#ifs <- "Pentadentrite"
 #ifs <- "KochSnowflake"
+#ifs <- "Disjoint_Pairs"
+#ifs <- "Stretched_Square"
+#ifs <- "My_Snowflake"
+#ifs <- "Heighway_Dragon"
+#ifs <- "Twin_Dragon"
+#ifs <- "Levy_Dragon"
+#ifs <- "Terdragon"
+#ifs <- "Fudgeflake"
+#ifs <- "Golden_Dragon"
+#ifs <- "Golden_Dragon_Z2"
+#ifs <- "Pythagorean_Tree"
+#ifs <- "Binary_Tree"
+#ifs <- "Fibonacci_Snowflake"
+
 
 # Number of iterations
-N <- 20000
+N <- 10000
 
 #---------------------------------------------------------------------------
 #---------------------------------------------------------------------------
@@ -97,4 +113,3 @@ for(i in 2:N){
 # Plot the points
 plot(x=M[,1],y=M[,2],
      xlab ="",ylab="",pch='.',frame.plot=FALSE, axes = FALSE)
-
