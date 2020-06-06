@@ -1,7 +1,45 @@
 # affine-ifs
-A collection of fractal computations for some affine iterated function systems, using the Random Iteration Method. Includes: <br>
+Two example algorithms for plotting the attractors of iterated function systems, using R. <br>
 
-Sierpinski Gasket <br>
-Sierpinski Carpet <br>
-Koch Snowflake <br>
-Some other experiments 
+<h1> Random Iteration Method </h1>
+ <h2> Required Files </h2> 
+ <li> Random_Iteration.R </li>
+ <li> ifs_data.csv </li>
+ 
+ <h2> User Inputs </h2>
+ <li> System name in ifs_data.csv </li>
+ <li> Number of iterations </li>
+
+ <h2> Outputs </h2>
+ <li> Plot of the attractor of the chosen system </li>
+  
+ <h2> Included Systems </h2>
+ <li> Si&eacute;rpinski Gasket </li>
+ <li> Si&eacute;rpinski Carpet </li>
+ <li> Si&eacute;rpinski Pentagon </li>
+ <li> Fudgeflake </li>
+ <li> Koche Snowflake </li>
+ <li> Heighway Dragon </li>
+ <li> Twindragon </li>
+ <li> Golden Dragon </li>
+ <li> L&eacute;vy Dragon </li>
+ <li> Pentadentrite </li>
+ <li> Pythagorean Tree </li>
+ <li> Binary Tree </li>
+ <li> Fibonacci Snowflake </li>
+ <li> Several experiments </li>
+
+<h1> Deterministic Method <h1>
+ <h2> Required Files </h2> 
+ <li> Deterministic.R </li>
+
+<h2> User Inputs </h2>
+ <li> System functions </li>
+ <li> Starting set </li>
+ <li> Number of iterations </li>
+
+<h2> Outputs </h2>
+ <li> Plot of the attractor of the chosen system </li>
+ 
+ <h2> Included Systems </h2>
+ <li> Example set up for the Si&eacute;rpinski Gasket </li>
