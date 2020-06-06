@@ -1,6 +1,6 @@
-#=====================
-# Sierpinski Gasket
-#=====================
+#========================================================
+# Deterministic Algorithm Example: Sierpinski Gasket
+#========================================================
 
 # This algorithm iterates functions on a starting set to create the Sierpinski Gasket. 
 #
