@@ -15,8 +15,10 @@
 # Finally, the resulting set is plotted by drawing lines between the pairs of points.
 #
 
+ library(ggplot2)
+
   # = Pick the number of iterations =
-  N <- 7
+  N <- 6
 
   # = Define the functions =
   f_1 <- function(x){
@@ -36,6 +38,8 @@
   A <- c(0,0)
   B <- c(1,0)
   C <- c(1/2, sqrt(3)/2)
+  
+  ref <- c(1/2, sqrt(3)/6)
   
   AB<-list()
   AB[[1]]<-A
@@ -87,21 +91,34 @@
   # = Iterate the functions =
   
   FF <- list()
+  pts <- list()
+  refs <- list()
+  
+  refs[[1]] <- ref
   
   for(i in 1:N){
+    
+    for(j in 1:length(refs)){
+      
+      pts[[j]] <- list(f_1(refs[[j]]),
+                       f_2(refs[[j]]),
+                       f_3(refs[[j]]))
+    }
     
     for(j in 1:length(S)){
       
       FF[[j]] <- list(F_1(S[[j]]),
                       F_2(S[[j]]),
                       F_3(S[[j]]))
+      
     }
     
     S <- unlist(FF, recursive = FALSE)
-    
+    refs <- unlist(pts, recursive=FALSE)
   }
+
   
-  # = Plot the lines between the pairs of points in the list S
+# = Prep to plot the lines between the pairs of points in the list S
  
   X_1<-vector()
   Y_1<-vector()
@@ -119,25 +136,107 @@
   
  } 
   
+  
+# Plot with just lines  
+# plot(c(X_1[1], X_2[1]), c(Y_1[1], Y_2[1]), type="l", xlim = c(0,1), ylim=c(0,sqrt(3)/2), asp=1, xlab="", ylab="", axes=FALSE)
+  
+# for(j in 2:length(S)){
+#   lines(c(X_1[j], X_2[j]), c(Y_1[j], Y_2[j]))
+# }
+  
+  
+# Create a plot with shading
+  
+  x<-vector()
+  y<-vector()
+  
+  for(j in 1:length(refs)){
+    r <- refs[[j]]
+    x[j] <- r[1]
+    y[j] <- r[2]
+  } 
 
-  
-  plot(c(X_1[1], X_2[1]), c(Y_1[1], Y_2[1]), type="l", xlim = c(0,1), ylim=c(0,sqrt(3)/2), asp=1, xlab="", ylab="", axes=FALSE)
-  
- for(j in 2:length(S)){
-   lines(c(X_1[j], X_2[j]), c(Y_1[j], Y_2[j]))
+#----------------------------------------------------------
+# Prepare a list of vertices to use as the shading polygons
+
+refs_df <- data.frame(x,y)
+pts_df <- data.frame(X_1, Y_1)
+regions <- list()
+corners <- list()
+
+lambda <- 1/2
+shrink <- lambda^N
+
+ for(i in 1:length(refs)){
+   for(j in 1: nrow(pts_df)){
+     how_far <- c(sqrt((pts_df[[j,1]]-refs_df[[i,1]])^2 + (pts_df[[j,2]]-refs_df[[i,2]])^2))
+     if(how_far <= shrink){
+       corners[[j]] <- pts_df[j,]
+     } else{corners[[j]] <- NA}
+   }
+   regions[[i]]<- corners
  }
+
+#-----------------------------------------------
+# Convert each list of vertices to a dataframe
+
+regions_dfs <- list()
+
+for(j in 1:length(regions)){
   
+  test_region <- regions[[j]]
+  tr_df <- data.frame(matrix(NA, nrow = length(test_region), ncol = 2))
   
+  for(i in 1:length(test_region)){
+    if(length(test_region[[i]][1])>0 & length(test_region[[i]][2])>0){
+      
+      tr_df[i,1] <- test_region[[i]][1]
+      tr_df[i,2] <- test_region[[i]][2]
+      
+    }
+  }
   
+  # Remove null rows
+  tr_df <- tr_df[unique(which(!is.na(tr_df), arr.ind = TRUE)[,1]),]
+  
+  # Remove duplicates
+  tr_df <- tr_df[!duplicated(tr_df), ]
+  
+  # Add to list of dataframes
+  regions_dfs[[j]] <- tr_df
+}
 
+#---------------------------------------------------------------------------------
+# Plot the shading using geom_polygon
+# When using geom_polygon, you will typically need two data frames:
+# one contains the coordinates of each polygon (positions),  and the
+# other the values associated with each polygon (values).  An id
+# variable links the two together
 
+# Combine regions into one dataframe
+df <- regions_dfs[[1]]
+for(i in 2:length(regions_dfs)){
+  df <- rbind(df, regions_dfs[[i]])
+}
+row.names(df) <- c(1:nrow(df))
 
+# Define id variables to specify groups to be shaded
+ids <- c(1:length(regions_dfs))
 
+# Combine a ids, a constant shading value, and vertices
+datapoly <- data.frame(
+  id = rep(ids, each = 3),
+  value = rep(1, each = 3),
+  x = df$X1,
+  y = df$X2
+)
 
-
-
-
-
-
-
+# Create the plot
+p <- ggplot(datapoly, aes(x = x, y = y)) +
+  geom_polygon(aes(fill = value, group = id))
+p + guides(fill=FALSE) +
+    scale_fill_gradient(low="black", high="black") +
+    theme(aspect.ratio=1) +
+    xlim(c(0,1)) + ylim(c(0,sqrt(3)/2)) +
+    xlab("") + ylab("")
 
