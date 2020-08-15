@@ -41,51 +41,12 @@
   
   ref <- c(1/2, sqrt(3)/6)
   
-  AB<-list()
-  AB[[1]]<-A
-  AB[[2]]<-B
-  
-  BC<-list()
-  BC[[1]]<-B
-  BC[[2]]<-C
-  
-  CA<-list()
-  CA[[1]]<-C
-  CA[[2]]<-A
-  
-  S<-list()
-  S[[1]]<-AB
-  S[[2]]<-BC
-  S[[3]]<-CA
+  S <- list()
+  S[[1]] <- A
+  S[[2]] <- B
+  S[[3]] <- C
   
   # = = = = = = = = = = = = = = = = = = = = = = = = =
-  
-  
-  # = Define the functions on lists of two elements =
-  
-  F_1 <- function(X){
-    Y <- list()
-    Y[[1]]<-f_1(X[[1]])
-    Y[[2]]<-f_1(X[[2]])
-    Y
-  }
-  
-  F_2 <- function(X){
-    Y <- list()
-    Y[[1]]<-f_2(X[[1]])
-    Y[[2]]<-f_2(X[[2]])
-    Y
-  }
-  
-  F_3 <- function(X){
-    Y <- list()
-    Y[[1]]<-f_3(X[[1]])
-    Y[[2]]<-f_3(X[[2]])
-    Y
-  }
-  
-  # = = = = = = = = = = = = 
-  
   
   
   # = Iterate the functions =
@@ -107,9 +68,9 @@
     
     for(j in 1:length(S)){
       
-      FF[[j]] <- list(F_1(S[[j]]),
-                      F_2(S[[j]]),
-                      F_3(S[[j]]))
+      FF[[j]] <- list(f_1(S[[j]]),
+                      f_2(S[[j]]),
+                      f_3(S[[j]]))
       
     }
     
@@ -120,33 +81,17 @@
   
 # = Prep to plot the lines between the pairs of points in the list S
  
-  X_1<-vector()
-  Y_1<-vector()
-  X_2<-vector()
-  Y_2<-vector()
+  X<-vector()
+  Y<-vector()
   
   for(j in 1:length(S)){
-   p <- S[[j]][[1]]
-    X_1[j] <- p[1]
-    Y_1[j] <- p[2]
-  
-  q <- S[[j]][[2]]
-  X_2[j] <- q[1]
-  Y_2[j] <- q[2]
+   p <- S[[j]]
+    X[j] <- p[1]
+    Y[j] <- p[2]
   
  } 
   
-  
-# Plot with just lines  
-# plot(c(X_1[1], X_2[1]), c(Y_1[1], Y_2[1]), type="l", xlim = c(0,1), ylim=c(0,sqrt(3)/2), asp=1, xlab="", ylab="", axes=FALSE)
-  
-# for(j in 2:length(S)){
-#   lines(c(X_1[j], X_2[j]), c(Y_1[j], Y_2[j]))
-# }
-  
-  
-# Create a plot with shading
-  
+# Prepare reference x and y values
   x<-vector()
   y<-vector()
   
@@ -160,7 +105,7 @@
 # Prepare a list of vertices to use as the shading polygons
 
 refs_df <- data.frame(x,y)
-pts_df <- data.frame(X_1, Y_1)
+pts_df <- data.frame(X, Y)
 regions <- list()
 corners <- list()
 
