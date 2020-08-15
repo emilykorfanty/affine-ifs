@@ -29,17 +29,21 @@ Two example algorithms for plotting the attractors of iterated function systems,
  <li> Fibonacci Snowflake </li>
  <li> Several experiments </li>
 
-<h1> Deterministic Method <h1>
+<h1> Deterministic Method for the Si&eacute;rpinski Gasket <h1>
  <h2> Required Files </h2> 
- <li> Deterministic.R </li>
+ <li> Deterministic.R, OR</li>
+ <li> Deterministic_Lines.R, OR</li>
 
 <h2> User Inputs </h2>
  <li> System functions </li>
- <li> Starting set </li>
+ <li> Starting set (must be a polygon) </li>
+ <li> Reference point in the interior of the starting set (Deterministic.R only) </li>
  <li> Number of iterations </li>
 
 <h2> Outputs </h2>
- <li> Plot of the attractor of the chosen system </li>
+ <li> Plot an approximation of the Si&eacute;rpinski Gasket </li>
+ <li> Deterministic.R plots shaded triangles </li>
+ <li> Deterministic_Lines.R plots lines only </li>
  
  <h2> Included Systems </h2>
- <li> Example set up for the Si&eacute;rpinski Gasket </li>
+ <li> Si&eacute;rpinski Gasket</li>
