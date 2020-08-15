@@ -29,7 +29,7 @@ Two example algorithms for plotting the attractors of iterated function systems,
  <li> Fibonacci Snowflake </li>
  <li> Several experiments </li>
 
-<h1> Deterministic Method for the Si&eacute;rpinski Gasket <h1>
+<h1> Deterministic Method for the Si&eacute;rpinski Gasket </h1>
  <h2> Required Files </h2> 
  <li> Deterministic.R, OR</li>
  <li> Deterministic_Lines.R, OR</li>
