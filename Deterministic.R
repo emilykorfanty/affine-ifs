@@ -18,7 +18,7 @@
  library(ggplot2)
 
   # = Pick the number of iterations =
-  N <- 6
+  N <- 3
 
   # = Define the functions =
   f_1 <- function(x){
@@ -45,6 +45,30 @@
   S[[1]] <- A
   S[[2]] <- B
   S[[3]] <- C
+  
+  # Plot the starting set
+  datapoly <- data.frame(rbind(A,B,C))
+  datapoly$id <- rep(1,times=3)
+  datapoly$value <- rep(1,times=3)
+  p <- ggplot(datapoly, aes(x = X1, y = X2)) +
+    geom_polygon(aes(fill = value, group = id))
+  p + guides(fill=FALSE) +
+    scale_fill_gradient(low="black", high="black") +
+    theme(aspect.ratio=1) +
+    xlim(c(0,1)) + ylim(c(0,sqrt(3)/2)) +
+    theme(axis.line=element_blank(),
+          axis.text.x=element_blank(),
+          axis.text.y=element_blank(),
+          axis.ticks=element_blank(),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          legend.position="none",
+          panel.background=element_blank(),
+          panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+          plot.background=element_blank())
+  
   
   # = = = = = = = = = = = = = = = = = = = = = = = = =
   
@@ -183,5 +207,16 @@ p + guides(fill=FALSE) +
     scale_fill_gradient(low="black", high="black") +
     theme(aspect.ratio=1) +
     xlim(c(0,1)) + ylim(c(0,sqrt(3)/2)) +
-    xlab("") + ylab("")
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank())
 
