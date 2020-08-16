@@ -182,10 +182,13 @@ for(j in 1:length(regions)){
 # other the values associated with each polygon (values).  An id
 # variable links the two together
 
-# Combine regions into one dataframe
+# Combine regions into one dataframe, using convex hull to fix ordering
 df <- regions_dfs[[1]]
+df <- df[chull(df),]
+
 for(i in 2:length(regions_dfs)){
-  df <- rbind(df, regions_dfs[[i]])
+  add_below <- regions_dfs[[i]]
+  df <- rbind(df, add_below[chull(add_below),])
 }
 row.names(df) <- c(1:nrow(df))
 
