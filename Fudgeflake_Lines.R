@@ -17,7 +17,7 @@
 
 library(ggplot2)
 
-N <- 6
+N <- 3
 
 theta <- pi/6
 R <- matrix(data=c(cos(theta), -sin(theta), sin(theta), cos(theta)), byrow=TRUE, nrow=2, ncol=2)
@@ -96,6 +96,48 @@ S[[4]] <- de
 S[[5]] <- ef
 S[[6]] <- fa
 
+# Plot the starting set
+# = Prep to plot the lines between the pairs of points in the list S
+
+X_1<-vector()
+Y_1<-vector()
+X_2<-vector()
+Y_2<-vector()
+
+for(j in 1:length(S)){
+  p <- S[[j]][[1]]
+  X_1[j] <- p[1]
+  Y_1[j] <- p[2]
+  
+  q <- S[[j]][[2]]
+  X_2[j] <- q[1]
+  Y_2[j] <- q[2]
+  
+} 
+
+# Combine the x and y values into a data.frame with grouping
+# to specify which points should be connected by a line
+X <- c(X_1, X_2)
+Y <- c(Y_1, Y_2)
+ids <- c(1:length(S))
+group <- rep(ids, times=2)
+lines <- data.frame(x=X, y=Y, grp=group)
+
+# Plot the lines
+ggplot(lines, aes(x, y, group = grp)) + 
+  geom_line() + xlab("") + ylab("") + theme(aspect.ratio=1) + 
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank())
 
 
 # = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -174,11 +216,17 @@ lines <- data.frame(x=X, y=Y, grp=group)
 
 # Plot the lines
 ggplot(lines, aes(x, y, group = grp)) + 
-  geom_line() + xlab("") + ylab("") + theme(aspect.ratio=1)
+  geom_line() + xlab("") + ylab("") + theme(aspect.ratio=1) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank())
 
-# Plot the just lines  
-#plot(c(X_1[1], X_2[1]), c(Y_1[1], Y_2[1]), type="l", xlim = c(0,1), ylim=c(0,sqrt(3)/2), asp=1, xlab="", ylab="", axes=FALSE)
-
-#for(j in 2:length(S)){
-#  lines(c(X_1[j], X_2[j]), c(Y_1[j], Y_2[j]))
-#  }

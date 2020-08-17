@@ -18,7 +18,7 @@
  library(ggplot2)
 
   # = Pick the number of iterations =
-  N <- 6
+  N <- 4
   
   lambda <- 1/sqrt(3)
   theta <- pi/6
@@ -198,4 +198,5 @@ p <- ggplot(datapoly, aes(x = x, y = y)) +
 p + guides(fill=FALSE) +
     scale_fill_gradient(low="black", high="black") +
     theme(aspect.ratio=1) + xlab("") + ylab("")
+
 
