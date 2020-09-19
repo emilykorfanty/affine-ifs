@@ -1,39 +1,50 @@
-#========================================================
-# Deterministic Algorithm Example: Sierpinski Gasket
-#========================================================
-
-# This algorithm iterates functions on a starting set to create the Sierpinski Gasket. 
+#=====================
+# Sierpinski Carpet
+#=====================
 #
-# The starting set is defined as a LIST of PAIRS of points in the plane.
 #
-# Each PAIR of points corresponds to a straight line drawn between them.
-#
-# The functions are applied to each of the endpoints, creating a new list of pairs of points.
-#
-# This process is repeated for the specified number of iterations.
-#
-# Finally, the resulting set is plotted by drawing lines between the pairs of points.
 #
 
-library(ggplot2)
+# = Pick a number of iterations =
 
-N <- 5
+N <- 1
 
-theta <- pi/6
+# = Define the functions =
+theta <- 0
 R <- matrix(data=c(cos(theta), -sin(theta), sin(theta), cos(theta)), byrow=TRUE, nrow=2, ncol=2)
 
-A <- (1/sqrt(3))*R
+A <- (1/3)*R
 
 f_1 <- function(x){
-  A%*%x
+  A%*%x + c(0,0)
 }
 
 f_2 <- function(x){
-  A%*%x + c(1/2, sqrt(3)/6)
+  A%*%x + c(0,1/3)
 }
 
 f_3 <- function(x){
-  A%*%x + c(1/2, -sqrt(3)/6)
+  A%*%x + c(0,2/3)
+}
+
+f_4 <- function(x){
+  A%*%x + c(1/3,0)
+}
+
+f_5 <- function(x){
+  A%*%x + c(1/3,2/3)
+}
+
+f_6 <- function(x){
+  A%*%x + c(2/3,0)
+}
+
+f_7 <- function(x){
+  A%*%x + c(2/3,1/3)
+}
+
+f_8 <- function(x){
+  A%*%x + c(2/3,2/3)
 }
 
 
@@ -59,42 +70,71 @@ F_3 <- function(X){
   
 }
 
+F_4 <- function(X){
+  Y <- list()
+  Y[[1]]<-f_4(X[[1]])
+  Y[[2]]<-f_4(X[[2]])
+  Y
+  
+}
+
+F_5 <- function(X){
+  Y <- list()
+  Y[[1]]<-f_5(X[[1]])
+  Y[[2]]<-f_5(X[[2]])
+  Y
+  
+}
+
+F_6 <- function(X){
+  Y <- list()
+  Y[[1]]<-f_6(X[[1]])
+  Y[[2]]<-f_6(X[[2]])
+  Y
+  
+}
+
+F_7 <- function(X){
+  Y <- list()
+  Y[[1]]<-f_7(X[[1]])
+  Y[[2]]<-f_7(X[[2]])
+  Y
+  
+}
+
+F_8 <- function(X){
+  Y <- list()
+  Y[[1]]<-f_8(X[[1]])
+  Y[[2]]<-f_8(X[[2]])
+  Y
+  
+}
+
 # = = = = = = = = = = = = 
 
 # = Define the starting set =
 
 ab<-list()
-ab[[1]]<-c(0,sqrt(3)/3)
-ab[[2]]<-c(1/2, sqrt(3)/3 + sqrt(3)/6)
+ab[[1]]<-c(0, 0)
+ab[[2]]<-c(1, 0)
 
 bc<-list()
-bc[[1]]<-c(1/2, sqrt(3)/3 + sqrt(3)/6)
-bc[[2]]<-c(1,sqrt(3)/3)
+bc[[1]]<-c(1, 0)
+bc[[2]]<-c(1, 1)
 
 cd<-list()
-cd[[1]]<-c(1,sqrt(3)/3)
-cd[[2]]<-c(1,0)
+cd[[1]]<-c(1, 1)
+cd[[2]]<-c(0, 1)
 
 de<-list()
-de[[1]]<-c(1,0)
-de[[2]]<-c(1/2,-sqrt(3)/6)
-
-
-ef<-list()
-ef[[1]]<-c(1/2,-sqrt(3)/6)
-ef[[2]]<-c(0,0)
-
-fa<-list()
-fa[[1]]<-c(0,0)
-fa[[2]]<-c(0,sqrt(3)/3)
+de[[1]]<-c(0,1)
+de[[2]]<-c(0, 0)
 
 S<-list()
 S[[1]] <- ab
 S[[2]] <- bc
 S[[3]] <- cd
 S[[4]] <- de
-S[[5]] <- ef
-S[[6]] <- fa
 
 # Plot the starting set
 # = Prep to plot the lines between the pairs of points in the list S
@@ -143,32 +183,8 @@ ggplot(lines, aes(x, y, group = grp)) +
 # = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
-# = Define the functions on lists of two elements =
-
-F_1 <- function(X){
-  Y <- list()
-  Y[[1]]<-f_1(X[[1]])
-  Y[[2]]<-f_1(X[[2]])
-  Y
-}
-
-F_2 <- function(X){
-  Y <- list()
-  Y[[1]]<-f_2(X[[1]])
-  Y[[2]]<-f_2(X[[2]])
-  Y
-}
-
-F_3 <- function(X){
-  Y <- list()
-  Y[[1]]<-f_3(X[[1]])
-  Y[[2]]<-f_3(X[[2]])
-  Y
-}
 
 # = = = = = = = = = = = = 
-
-
 
 # = Iterate the functions =
 
@@ -179,12 +195,17 @@ for(i in 1:N){
   for(j in 1:length(S)){
     
     FF[[j]] <- list(F_1(S[[j]]),
-                    F_2(S[[j]]),
-                    F_3(S[[j]]))
-    
+                    F_2(S[[j]]), 
+                    F_3(S[[j]]),
+                    F_4(S[[j]]),
+                    F_5(S[[j]]),
+                    F_6(S[[j]]),
+                    F_7(S[[j]]),
+                    F_8(S[[j]]))
   }
   
   S <- unlist(FF, recursive = FALSE)
+  
 }
 
 
@@ -229,4 +250,7 @@ ggplot(lines, aes(x, y, group = grp)) +
         panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
         plot.background=element_blank())
+
+
+
 

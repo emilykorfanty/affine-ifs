@@ -1,19 +1,7 @@
 #========================================================
-# Deterministic Algorithm Example: Sierpinski Gasket
+# Deterministic Algorithm Example: Fudgeflake
 #========================================================
 
-# This algorithm iterates functions on a starting set to create the Sierpinski Gasket. 
-#
-# The starting set is defined as a LIST of PAIRS of points in the plane.
-#
-# Each PAIR of points corresponds to a straight line drawn between them.
-#
-# The functions are applied to each of the endpoints, creating a new list of pairs of points.
-#
-# This process is repeated for the specified number of iterations.
-#
-# Finally, the resulting set is plotted by drawing lines between the pairs of points.
-#
 
  library(ggplot2)
 

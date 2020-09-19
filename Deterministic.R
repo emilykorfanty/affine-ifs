@@ -18,7 +18,7 @@
  library(ggplot2)
 
   # = Pick the number of iterations =
-  N <- 3
+  N <- 4
 
   # = Define the functions =
   f_1 <- function(x){
