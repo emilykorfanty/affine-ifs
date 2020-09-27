@@ -32,7 +32,7 @@ Two example algorithms for plotting the attractors of iterated function systems,
 <h1> Deterministic Method for the Si&eacute;rpinski Gasket </h1>
  <h2> Required Files </h2> 
  <li> Deterministic.R, OR</li>
- <li> Deterministic_Lines.R, OR</li>
+ <li> Deterministic_Lines.R </li>
 
 <h2> User Inputs </h2>
  <li> System functions </li>
