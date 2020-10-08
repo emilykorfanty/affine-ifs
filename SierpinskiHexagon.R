@@ -8,7 +8,7 @@ library(ggplot2)
 # = Pick the number of iterations =
 N <- 4
 
-lambda <- (3-sqrt(5))/2
+lambda <- 1/3
 
 # = Define the functions =
 theta <- 0
@@ -16,27 +16,29 @@ R <- matrix(data=c(cos(theta), -sin(theta), sin(theta), cos(theta)), byrow=TRUE,
 
 A <- lambda*R
 
-alpha <- 72*pi/180
-beta <- 36*pi/180
 
 f_1 <- function(x){
-  A%*%x + c(0,0)
+  A%*%x + c(0, 2/3)
 }
 
 f_2 <- function(x){
-  A%*%x + c(0.618,0)
+  A%*%x + c(1/sqrt(3),1/3)
 }
 
 f_3 <- function(x){
-  A%*%x + c(0.809,0.588)
+  A%*%x + c(-1/sqrt(3),1/3)
 }
 
 f_4 <- function(x){
-  A%*%x + c(0.309,0.951)
+  A%*%x + c(-1/sqrt(3),-1/3)
 }
 
 f_5 <- function(x){
-  A%*%x + c(-0.191,0.588)
+  A%*%x + c(1/sqrt(3),-1/3)
+}
+
+f_6 <- function(x){
+  A%*%x + c(0, -2/3)
 }
 
 
@@ -46,11 +48,12 @@ f_5 <- function(x){
 
 
 
-a <- c(0, 0)
-b <- c(1, 0)
-c <- b + c(cos(alpha), sin(alpha))
-d <- c(1/2,sin(alpha) + sin(beta))
-e <- a + c(-cos(alpha), sin(alpha))
+a <- c(0, 1)
+b <- c(sqrt(3)/2, 1/2)
+c <- c(sqrt(3)/2, -1/2)
+d <- c(0, -1)
+e <- c(-sqrt(3)/2, -1/2)
+f <- c(-sqrt(3)/2, 1/2)
 
 S<-list()
 S[[1]] <- a
@@ -58,8 +61,9 @@ S[[2]] <- b
 S[[3]] <- c
 S[[4]] <- d
 S[[5]] <- e
+S[[6]] <- f
 
-ref <- c(1/2, 1/(2*tan(beta)))
+ref <- c(0, 0)
 
 # Plot the starting set
 # = Prep to plot the lines between the pairs of points in the list S
@@ -82,8 +86,8 @@ ids <- c(1)
 
 # Combine a ids, a constant shading value, and vertices
 datapoly <- data.frame(
-  id = rep(ids, each = 5),
-  value = rep(1, each = 5),
+  id = rep(ids, each = 6),
+  value = rep(1, each = 6),
   x = df$X1,
   y = df$X2
 )
@@ -127,7 +131,8 @@ for(i in 1:N){
                      f_2(refs[[j]]),
                      f_3(refs[[j]]),
                      f_4(refs[[j]]),
-                     f_5(refs[[j]]))
+                     f_5(refs[[j]]),
+                     f_6(refs[[j]]))
   }
   
   for(j in 1:length(S)){
@@ -136,7 +141,8 @@ for(i in 1:N){
                     f_2(S[[j]]),
                     f_3(S[[j]]),
                     f_4(S[[j]]),
-                    f_5(S[[j]]))
+                    f_5(S[[j]]),
+                    f_6(S[[j]]))
     
   }
   
@@ -176,7 +182,7 @@ regions <- list()
 corners <- list()
 
 #shrink <- lambda^N
-shrink <- lambda^N/(2*sin(beta)) + 0.00001
+shrink <- lambda^N + 0.0001
 #shrink <- 1.1755*lambda^N
 
 for(i in 1:length(refs)){
@@ -212,7 +218,7 @@ for(j in 1:length(regions)){
   tr_df <- tr_df[unique(which(!is.na(tr_df), arr.ind = TRUE)[,1]),]
   
   # Remove duplicates
-  tr_df <- tr_df[!duplicated(round(tr_df, digits=3)), ]
+  tr_df <- tr_df[!duplicated(round(tr_df, digits=4)), ]
   
   # Add to list of dataframes
   regions_dfs[[j]] <- tr_df
@@ -240,8 +246,8 @@ ids <- c(1:length(regions_dfs))
 
 # Combine a ids, a constant shading value, and vertices
 datapoly <- data.frame(
-  id = rep(ids, each = 5),
-  value = rep(1, each = 5^N),
+  id = rep(ids, each = 6),
+  value = rep(1, each = 6^N),
   x = df$X1,
   y = df$X2
 )
@@ -253,5 +259,22 @@ p + guides(fill=FALSE) +
   scale_fill_gradient(low="black", high="black") +
   theme(aspect.ratio=1) + xlab("") + ylab("")
 
-
+#Create the plot
+p <- ggplot(datapoly, aes(x = x, y = y)) +
+  geom_polygon(aes(fill = value, group = id))
+p + guides(fill=FALSE) +
+  scale_fill_gradient(low="black", high="black") +
+  theme(aspect.ratio=1) + xlab("") + ylab("") + theme(aspect.ratio=1) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank())
 
