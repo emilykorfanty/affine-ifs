@@ -26,7 +26,7 @@ source("functions.R")
 # = Pick the number of iterations =
 N <- 11
 
-digits <- 4
+digits <- 8
 
 lambda <- 1/sqrt(2)
 theta <- pi/4
@@ -187,7 +187,7 @@ ids <- c(1:length(regions_dfs))
 # Combine a ids, a constant shading value, and vertices
 datapoly <- data.frame(
   id = rep(ids, each = 4),
-  value = rep(1, each = 4),
+  value = rep(1, each = 4*length(ids)),
   x = df$X1,
   y = df$X2
 )
