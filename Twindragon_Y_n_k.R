@@ -24,7 +24,7 @@ setwd("C:/Users/Emily/Documents/GitHub/affine-ifs")
 source("functions.R")
 
 # = Pick the number of iterations =
-N <- 1
+N <- 11
 
 digits <- 4
 
@@ -186,11 +186,12 @@ ids <- c(1:length(regions_dfs))
 
 # Combine a ids, a constant shading value, and vertices
 datapoly <- data.frame(
-  id = rep(ids, each = 6),
-  value = rep(1, each = 6),
+  id = rep(ids, each = 4),
+  value = rep(1, each = 4),
   x = df$X1,
   y = df$X2
 )
+
 
 #--------------------------------------------------------------------
 # Apply the three functions to the resulting set of points
@@ -248,12 +249,26 @@ datapoly1 <- data.frame(
 )
 
 
+newvalues1 <- vector()
+
+for(i in 1:length(functions)){
+  
+  newvalues1 <- c(newvalues1, rep(i, each=num_values*2))
+
+}
+
+datapoly1 <- data.frame(
+  id = ids1,
+  value = newvalues1,
+  x = x_values,
+  y = y_values
+)
 
 # Create the plot
 p <- ggplot(datapoly1, aes(x = x, y = y)) +
   geom_polygon(aes(fill = value, group = id))
 p + guides(fill=FALSE) +
-  scale_fill_gradient(low="gray15", high="gray60") +
+  scale_fill_gradient(low="gray15", high="gray45") +
   theme(axis.line=element_blank(),
         axis.text.x=element_blank(),
         axis.text.y=element_blank(),
@@ -265,8 +280,7 @@ p + guides(fill=FALSE) +
         panel.border=element_blank(),
         panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
-        plot.background=element_blank())+
-  theme(aspect.ratio=1) 
+        plot.background=element_blank()) 
 
 
 #--------------------------------------------------------------------
