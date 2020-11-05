@@ -24,7 +24,7 @@ setwd("C:/Users/Emily/Documents/GitHub/affine-ifs")
 source("functions.R")
 
 # = Pick the number of iterations =
-N <- 11
+N <- 12
 
 digits <- 8
 
