@@ -123,7 +123,7 @@ pts_df <- data.frame(X, Y)
 regions <- list()
 corners <- list()
 
-shrink <- lambda^N
+shrink <- lambda^N + 0.001
 
 for(i in 1:length(refs)){
   for(j in 1: nrow(pts_df)){
@@ -192,6 +192,9 @@ datapoly <- data.frame(
   y = df$X2
 )
 
+n_poly <- 4*2^N
+datapoly <- datapoly[1:n_poly,]
+
 
 #--------------------------------------------------------------------
 # Apply the three functions to the resulting set of points
@@ -209,7 +212,7 @@ compositions <- compose(functions)
 results <- apply_functions(df, compositions)
 
 # find the pairwise intersections of images
-matches <- pair_intersect(results, digits)
+#matches <- pair_intersect(results, digits)
 
 #--------------------------------------------------------------------
 # Plot the copies of the fudgeflake in different colours 
